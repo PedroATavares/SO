@@ -1,0 +1,5 @@
+﻿C:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\V140\Microsoft.CppBuild.targets(392,5): warning MSB8028: The intermediate directory (Debug\) contains files shared from another project (UThread.vcxproj).  This can lead to incorrect clean and rebuild behavior.
+  UtMulJoin.c
+c:\users\hp\documents\universidade\so\so_1516v_li42d_se2\uthreads\utmuljoin\utmuljoin.c(12): warning C4273: 'UtMultJoin': inconsistent dll linkage
+  c:\users\hp\documents\universidade\so\so_1516v_li42d_se2\uthreads\include\utmuljoin.h(17): note: see previous definition of 'UtMultJoin'
+  UtMulJoin.vcxproj -> C:\Users\HP\Documents\Universidade\SO\SO_1516v_LI42D_SE2\Uthreads\Debug\UtMulJoin.dll
