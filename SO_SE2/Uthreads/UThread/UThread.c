@@ -192,15 +192,13 @@ VOID UtRun () {
 }
 
 
-VOID UtNotifyLatch(HANDLE tHandle) {
+VOID UtNotify(HANDLE tHandle) {
 	PUTHREAD thread=(PUTHREAD)tHandle;
 	PUTHREAD aux;
 	while(thread->NRelease-->0){
-		aux = CONTAINING_RECORD(&thread->waitingLink.Flink, UTHREAD, waitingLink);
-		thread=thread->waitingLink.Flink;
-		if(--aux->NWaiting>0)
-			UtActivate();
-	//	UtSignalCounterLatch(&aux->cLatch);
+		aux = CONTAINING_RECORD(RemoveHeadList(&thread->waitingLink), UTHREAD, cLatchLink);
+		if(--aux->NWaiting<=0)
+			UtActivate(aux);
 	}
 }
 
@@ -210,10 +208,10 @@ VOID UtNotifyLatch(HANDLE tHandle) {
 //
 VOID UtExit () {
 	NumberOfThreads -= 1;	
+	UtNotify(UtSelf());
 	PUTHREAD thead= ExtractNextReadyThread();
 	thead->State=Running;
 	RemoveEntryList(&RunningThread->AliveLink);
-	UtNotifyLatch(UtSelf());
 	InternalExit(RunningThread, thead);
 	_ASSERTE(!"Supposed to be here!");
 }
@@ -224,9 +222,9 @@ VOID UtExit () {
 //
 VOID UtExitAux2 (HANDLE uThread) {
 	NumberOfThreads -= 1;
+	UtNotify(uThread);
 	RemoveEntryList(&((PUTHREAD)uThread)->AliveLink);
 	RemoveEntryList(&((PUTHREAD)uThread)->Link);
-	UtNotifyLatch(uThread);
 	InternalExit(uThread, RunningThread);
 	_ASSERTE(!"Supposed to be here!");
 }
@@ -237,10 +235,10 @@ VOID UtExitAux2 (HANDLE uThread) {
 //
 VOID UtExitAux(HANDLE uThread) {
 	NumberOfThreads -= 1;
+	UtNotify(uThread);
 	PUTHREAD thead = ExtractNextReadyThread();
 	thead->State = Running;
 	RemoveEntryList(&((PUTHREAD)uThread)->AliveLink);
-	UtNotifyLatch(uThread);
 	InternalExit(uThread, thead);
 	_ASSERTE(!"Supposed to be here!");
 }
@@ -410,6 +408,9 @@ HANDLE UtCreate (UT_FUNCTION Function, UT_ARGUMENT Argument) {
 	NumberOfThreads += 1;
 	InsertTailList(&AliveQueue, &(Thread)->AliveLink);
 	Thread->ToTerminate=FALSE;
+	Thread->State=Ready;
+	Thread->NRelease=0;
+	Thread->NWaiting=0;
 	InitializeListHead(&Thread->cLatchLink);
 	InitializeListHead(&Thread->waitingLink);
 	UtActivate((HANDLE)Thread);

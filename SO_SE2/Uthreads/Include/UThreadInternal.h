@@ -67,7 +67,6 @@ typedef struct _UTHREAD {
 	DWORD					NRelease;
 	DWORD					State;
 	BOOL					ToTerminate;
-	UTHREAD_COUNTER_LATCH	cLatch;
 } UTHREAD, *PUTHREAD;
 
 //

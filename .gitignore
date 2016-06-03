@@ -1,0 +1,10 @@
+#Log
+.log
+
+#OpenDB
+VC.opendb
+
+# OSX
+.DS_Store
+
+

@@ -32,6 +32,7 @@
 
 ULONG Test1_Count;
 HANDLE ut[MAX_THREADS];
+DWORD id=1;
 
 VOID Test1_Thread(UT_ARGUMENT Argument) {
 	UCHAR Char;
@@ -72,12 +73,11 @@ VOID Test3_Thread(UT_ARGUMENT Argument) {
 	UCHAR Char;
 	ULONG Index;
 	Char = (UCHAR)Argument;
-
+	UtMultJoin(ut, id++ -1);
 	for (Index = 0; Index < 10; ++Index) {
 		printf("Thread %c \n", Char);
 		printf("%d = %d (Running) \n", UtThreadState(UtSelf()), Running);
 		if ((rand() % 4) == 0) {
-			UtMultJoin(ut,MAX_THREADS-1);
 			UtYield();
 			
 		}
@@ -136,7 +136,7 @@ VOID TestUtMulJoin() {
 	ULONG Index;
 	const DWORD  NThreads=5;
 	Test1_Count = 0;
-	printf("\n :: Test 2 - BEGIN :: \n\n");
+	printf("\n :: Test 3 - BEGIN :: \n\n");
 
 	for (Index = 0; Index < NThreads; ++Index) {
 		ut[Index]= UtCreate(Test3_Thread, (UT_ARGUMENT)('0' + Index));
@@ -149,7 +149,7 @@ VOID TestUtMulJoin() {
 	printf("UThread %d Alive? : %d \n", '0' + --Index, UtAlive(ut));
 
 
-	printf("\n\n :: Test 2 - END :: \n");
+	printf("\n\n :: Test 3 - END :: \n");
 }
 
 
