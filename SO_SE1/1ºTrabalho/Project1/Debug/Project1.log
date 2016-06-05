@@ -1,6 +1,1 @@
-﻿C:\Program Files (x86)\MSBuild\14.0\bin\Microsoft.Common.CurrentVersion.targets(1610,5): warning : The referenced project '..\6_Dll\6_Dll.vcxproj' does not exist.
-  3.cpp
-c:\users\hp\documents\universidade\so\1ºtrabalho\1ºtrabalho\3.cpp(37): warning C4018: '<': signed/unsigned mismatch
-c:\users\hp\documents\universidade\so\1ºtrabalho\1ºtrabalho\3.cpp(61): warning C4101: 'end': unreferenced local variable
-  Project1.vcxproj -> C:\Users\HP\Documents\Universidade\SO\1ºTrabalho\1ºTrabalho\Debug\Project1.exe
-  Project1.vcxproj -> C:\Users\HP\Documents\Universidade\SO\1ºTrabalho\1ºTrabalho\Debug\Project1.pdb (Partial PDB)
+﻿

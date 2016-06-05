@@ -1,8 +1,8 @@
 #Log
-.log
+*.log
 
 #OpenDB
-VC.opendb
+*.vc.opendb
 
 # OSX
 .DS_Store
