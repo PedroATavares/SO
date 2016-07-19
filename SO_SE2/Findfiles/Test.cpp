@@ -114,16 +114,10 @@ int _tmain(int argc, _TCHAR* argv[])
 		// if word is not specified use the file processor to just count the file
 		fp = CountFile;
 	}
-	Parameters param;
-	param.path=argv[1];
-	param.fileMatch=argv[2];
-	param.dp=CountDir;
-	param.fp=fp;
-	param.ctx=&ctx;
 
 	DWORD startTime = GetTickCount();
 
-	FindFilesPar(&param);
+	FindFilesPar(argv[1],argv[2],CountDir,fp,&ctx);
 	DWORD endTime = GetTickCount();
 
 	printf("\nDone in %d ms!\n", endTime - startTime);

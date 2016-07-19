@@ -1,0 +1,7 @@
+C:\Users\HP\Documents\Universidade\SO\SO\SO_SE2\FindFiles/.vs
+C:\Users\HP\Documents\Universidade\SO\SO\SO_SE2\FindFiles/Debug
+C:\Users\HP\Documents\Universidade\SO\SO\SO_SE2\FindFiles/ipch
+C:\Users\HP\Documents\Universidade\SO\SO\SO_SE2\FindFiles/Debug/FindFiles.tlog
+C:\Users\HP\Documents\Universidade\SO\SO\SO_SE2\FindFiles/ipch/FINDFILES-f41c5269
+C:\Users\HP\Documents\Universidade\SO\SO\SO_SE2\FindFiles/.vs/FindFiles
+C:\Users\HP\Documents\Universidade\SO\SO\SO_SE2\FindFiles/.vs/FindFiles/v14

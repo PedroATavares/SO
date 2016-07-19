@@ -1,0 +1,57 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="AIO.cpp">
+      <Filter>Server Sources\AIO</Filter>
+    </ClCompile>
+    <ClCompile Include="CompletionPort.cpp">
+      <Filter>Server Sources\AIO</Filter>
+    </ClCompile>
+    <ClCompile Include="ReadAsync.cpp">
+      <Filter>Server Sources\AIO</Filter>
+    </ClCompile>
+    <ClCompile Include="WriteAsync.cpp">
+      <Filter>Server Sources\AIO</Filter>
+    </ClCompile>
+    <ClCompile Include="FSCloudServer.cpp">
+      <Filter>Server Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="FSCloudService.cpp">
+      <Filter>Server Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="serverutils.cpp">
+      <Filter>Server Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="stdafx.cpp">
+      <Filter>Server Sources</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\include\serverutils.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="stdafx.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="targetver.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="aio.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="ReadMe.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Headers">
+      <UniqueIdentifier>{96e96ec7-e751-43bc-a92e-be557e84b66f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Server Sources">
+      <UniqueIdentifier>{1bcc2367-a1c9-4638-9d50-561a230f581c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Server Sources\AIO">
+      <UniqueIdentifier>{f8c5eb88-0926-476e-9534-a3d85c4fc499}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>
