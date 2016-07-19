@@ -11,9 +11,7 @@ typedef struct upload_ctx {
 	HANDLE hfile;
 	LPDWORD written;
 	DWORD toCopy;
-
 } UPLOAD_CTX, *PUPLOAD_CTX;
-
 // retorna a dimensão de um ficheiro com a dimensão máxima de 2GBytes
 INT getFileSize(char * fileName) {
 	WIN32_FILE_ATTRIBUTE_DATA fData;
@@ -22,7 +20,7 @@ INT getFileSize(char * fileName) {
 }
 
 static VOID UploadFileCallBack(PAIO_DEV aiodev, INT transferedBytes, LPVOID ctx) {
-	PUPLOAD_CTX context=(PUPLOAD_CTX) ctx ;
+	PUPLOAD_CTX context = (PUPLOAD_CTX)ctx;
 	if (context->toCopy > 0) {
 		DWORD written;
 
@@ -31,17 +29,30 @@ static VOID UploadFileCallBack(PAIO_DEV aiodev, INT transferedBytes, LPVOID ctx)
 			return;
 		}
 
-		context->written+=transferedBytes;
+		context->written += transferedBytes;
 		context->toCopy -= transferedBytes;
-		ReadCompleteAsync(aiodev,context->buffer,BUF_SIZE,UploadFileCallBack,ctx);
+		ReadCompleteAsync(aiodev, context->buffer, BUF_SIZE, UploadFileCallBack, ctx);
 	}
 }
 
 INT uploadFile(SOCKET s, HANDLE fileOut, int toCopy) {
 	char buffer[BUF_SIZE];
-
-	printf("copy file with %d bytes!\n", toCopy);
 	
+	printf("copy file with %d bytes!\n", toCopy);
+	while (toCopy > 0) {
+		DWORD read, written;
+
+		if ((read = recv(s, buffer, BUF_SIZE, 0)) <= 0) {
+			printf("Error reading on file copy\n");
+			return IO_ERROR;
+		}
+		if (!WriteFile(fileOut, buffer, read, &written, NULL)) {
+			printf("Error writing on file copy\n");
+			return IO_ERROR;
+		}
+
+		toCopy -= read;
+	}
 	return STATUS_OK;
 }
 

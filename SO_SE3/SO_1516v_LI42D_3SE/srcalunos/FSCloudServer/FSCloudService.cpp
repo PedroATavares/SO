@@ -56,12 +56,14 @@ static BOOL writeResponse(HANDLE sd, PFSCloudAnswer response) {
 	return writeFromBuffer((SOCKET)sd, response, sizeof(FSCloudAnswer));
 }
 
-
+static VOID Decoy(PAIO_DEV aiodev, INT transferedBytes, LPVOID ctx) {
+	printf("Inside Decoy, bytes tranfered: %d", transferedBytes);
+}
 // upload a file, i.e. put it on remote fs
 static INT ExecPut(PAIO_DEV sock, PSERVICE_CONTEXT sc) {
 	int fileSize = atoi(sc->req.fileSize);
 	
-	HANDLE hFile = CreateFileA(sc->req.fileName, GENERIC_WRITE, 0, NULL, CREATE_ALWAYS, FILE_ATTRIBUTE_NORMAL, NULL);
+	PAIO_DEV hFile = OpenFileAsync(sc->req.fileName);
 	if (hFile == INVALID_HANDLE_VALUE) {
 		printf("Error %d creating file %s!\n", GetLastError(), sc->req.fileName);
 		return FS_ERROR;
@@ -69,7 +71,7 @@ static INT ExecPut(PAIO_DEV sock, PSERVICE_CONTEXT sc) {
 	
 	int status = uploadFile((SOCKET) sock->dev, hFile, fileSize);
 	CloseHandle(hFile);
-	
+	getchar();
 	_itoa_s(status, sc->resp.status, 10);	
 	if (!writeResponse(sock->dev, &sc->resp)) return IO_ERROR;
 	return STATUS_OK;
