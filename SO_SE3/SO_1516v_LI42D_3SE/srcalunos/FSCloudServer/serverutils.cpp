@@ -1,17 +1,9 @@
 #include "stdafx.h"
-#include "aio.h"
 #include "../include/FSCloudService.h"		
 #include "../include/serverutils.h"
 
-
 #define BUF_SIZE 1024
 
-typedef struct upload_ctx {
-	LPVOID buffer;
-	HANDLE hfile;
-	LPDWORD written;
-	DWORD toCopy;
-} UPLOAD_CTX, *PUPLOAD_CTX;
 // retorna a dimensão de um ficheiro com a dimensão máxima de 2GBytes
 INT getFileSize(char * fileName) {
 	WIN32_FILE_ATTRIBUTE_DATA fData;
@@ -19,25 +11,10 @@ INT getFileSize(char * fileName) {
 	return fData.nFileSizeLow;
 }
 
-static VOID UploadFileCallBack(PAIO_DEV aiodev, INT transferedBytes, LPVOID ctx) {
-	PUPLOAD_CTX context = (PUPLOAD_CTX)ctx;
-	if (context->toCopy > 0) {
-		DWORD written;
-
-		if (!WriteFile(context->hfile, context->buffer, transferedBytes, context->written, NULL)) {
-			printf("Error writing on file copy\n");
-			return;
-		}
-
-		context->written += transferedBytes;
-		context->toCopy -= transferedBytes;
-		ReadCompleteAsync(aiodev, context->buffer, BUF_SIZE, UploadFileCallBack, ctx);
-	}
-}
 
 INT uploadFile(SOCKET s, HANDLE fileOut, int toCopy) {
 	char buffer[BUF_SIZE];
-	
+
 	printf("copy file with %d bytes!\n", toCopy);
 	while (toCopy > 0) {
 		DWORD read, written;
@@ -50,7 +27,7 @@ INT uploadFile(SOCKET s, HANDLE fileOut, int toCopy) {
 			printf("Error writing on file copy\n");
 			return IO_ERROR;
 		}
-
+		 
 		toCopy -= read;
 	}
 	return STATUS_OK;
@@ -59,7 +36,7 @@ INT uploadFile(SOCKET s, HANDLE fileOut, int toCopy) {
 INT downloadFile(HANDLE fileIn, SOCKET s, int toCopy) {
 	char buffer[BUF_SIZE];
 
-	
+	 
 	while (toCopy > 0) {
 		DWORD read;
 

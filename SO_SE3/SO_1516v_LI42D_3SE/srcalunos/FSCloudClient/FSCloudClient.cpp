@@ -204,7 +204,7 @@ int main(int argc, CHAR *argv[])
 	/* Connect to the server */
 	/* Follow the standard client socket/connect sequence */
 	clientSock = socket(AF_INET, SOCK_STREAM, 0);
-	
+
 	if (clientSock == INVALID_SOCKET) {
 		_tprintf(_T("Failed client socket() call"));
 		WSACleanup();

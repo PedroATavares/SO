@@ -26,7 +26,6 @@ BOOL CreateCompletionPort(int maxConcurrency) {
 BOOL CompletionPortAssociateHandle(HANDLE devHandle, LPVOID completionKey) {
 	HANDLE h = CreateIoCompletionPort(devHandle, completionPort, (ULONG_PTR) completionKey, 0);
 	return h == completionPort;
-	
 }
 
 
@@ -53,7 +52,6 @@ static UINT WINAPI ProcessOpers(LPVOID arg) {
 	 
 	}
 }
-
 
 // low level async read
 BOOL AsyncRead(HANDLE sd, LPVOID buffer, DWORD length, OVERLAPPED *ovr)

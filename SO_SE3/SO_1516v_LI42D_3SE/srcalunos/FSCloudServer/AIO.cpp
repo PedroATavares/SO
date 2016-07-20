@@ -18,7 +18,7 @@ static VOID CpyCallback2(PAIO_DEV aiodev, INT transferedBytes, LPVOID ctx) {
 
 static VOID CpyCallback1(PAIO_DEV aiodev, INT transferedBytes, LPVOID ctx) {
 	PUTIL_CTX pCtx = (PUTIL_CTX)ctx;
-	WriteCompleteAsync(pCtx->devToCall,pCtx->buffer,transferedBytes, CpyCallback2,ctx);
+	WriteCompleteAsync(pCtx->devToCall, pCtx->buffer, transferedBytes, CpyCallback2, ctx);
 }
 
 static VOID ReadCCallback(PAIO_DEV aiodev, INT transferedBytes, LPVOID ctx) {
@@ -65,17 +65,17 @@ BOOL ReadCompleteAsync(PAIO_DEV dev, LPVOID buffer, int size, AIO_CALLBACK cb, L
 
 BOOL CopyStreamAsync(PAIO_DEV devIn, PAIO_DEV devOut, int size, AIO_CALLBACK cb, LPVOID ctx) {
 
-	char* buffer= (char *) malloc(size);
+	char* buffer = (char *)malloc(size);
 	PUTIL_CTX pCtx = (PUTIL_CTX)malloc(sizeof(UTIL_CTX));
 	pCtx->buffer = buffer;
 	pCtx->cb = cb;
 	pCtx->cur = 0;
 	pCtx->size = size;
 	pCtx->userCtx = ctx;
-	pCtx->devToCall =devOut;
-	
-	return ReadCompleteAsync(devIn,buffer,size, CpyCallback1,pCtx);
-	
+	pCtx->devToCall = devOut;
+
+	return ReadCompleteAsync(devIn, buffer, size, CpyCallback1, pCtx);
+
 
 }
 

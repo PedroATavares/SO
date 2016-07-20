@@ -56,7 +56,7 @@ BOOL WriteAsync(PAIO_DEV dev, LPVOID buffer, int bsize, AIO_CALLBACK cb, LPVOID 
 // not existing yet operations
 BOOL WriteCompleteAsync(PAIO_DEV dev, LPVOID buffer, int bsize, AIO_CALLBACK cb, LPVOID ctx);
 BOOL ReadCompleteAsync(PAIO_DEV dev, LPVOID buffer, int bsize, AIO_CALLBACK cb, LPVOID ctx);
-BOOL CopyStreamAsync(PAIO_DEV devIn, PAIO_DEV devOut, int size, AIO_CALLBACK cb, LPVOID ctx);
+BOOL CopyAsync(PAIO_DEV devIn, PAIO_DEV devOut, int size, AIO_CALLBACK cb, LPVOID ctx);
 
 /* start socket service */
 VOID StartSession(SOCKET s);

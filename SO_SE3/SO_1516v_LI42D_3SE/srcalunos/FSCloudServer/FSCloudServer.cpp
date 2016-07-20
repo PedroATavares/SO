@@ -47,7 +47,7 @@ int _tmain(int argc, LPCTSTR argv[])
 	}
 
 	/*	Follow the standard server socket/bind/listen/accept sequence */
-	SrvSock = socket(AF_INET, SOCK_STREAM, 0); 
+	SrvSock = socket(AF_INET, SOCK_STREAM, 0);
 	if (SrvSock == INVALID_SOCKET) {
 		_tprintf(_T("Failed server socket() call"));
 		WSACleanup();
